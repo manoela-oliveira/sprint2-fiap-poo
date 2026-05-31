@@ -79,7 +79,7 @@ O objetivo macro é construir um sistema de monitoramento e priorização de ro�
 ```
  
 ### Perguntas de reflexão
-<ol>
+<ul>
     <li>Por que TrechoRodovia é classe e "BR-116 KM 10-15" é objeto?
     <br> TrechoRodovia é o conceito que não pode ser definido sozinho sem suas caracterízticas definidas, assim como o Veículo é um conceito sem definições. A "BR-116 KM 10-15" é a instância real de um objeto, com valores específicos, ocupando um lugar na memória. Eu não posso realizar a manutenção no TrechoRodovia, mas posso realizar a manutenção no trecho "BR-116 KM 10-15".
     </li>
@@ -95,7 +95,7 @@ O objetivo macro é construir um sistema de monitoramento e priorização de ro�
     <li>Qual a diferença arquitetural entre fazer um Trecho herdar de uma classe abstrata vs.implementar uma Interface?
     <br> Uma herança de classe abstrata modela uma relação rígida de atribuições, seguindo a lógica Has-A (Tem-Um), fazendo com que seus herdeiros compartilhem característicasbásicas. Já ao escolher implementar uma Interface, criamos um contrato de capacidade, aquilo que pode ser feito por tal "objeto", totalmente desvinculado da parte de heranças.Desse modo, é possível atribuir capacidades à objetos que não compartilham características básicas herdadas de uma mesma classe-mãe.
     </li>
-</ol>
+</ul>
 
 ## Visualização do sistema no Astah
 
