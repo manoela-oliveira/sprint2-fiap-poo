@@ -1,94 +1,105 @@
 package br.com.sistemamotiva.main;
 
-import br.com.sistemamotiva.model.EquipeManutencao;
-import br.com.sistemamotiva.model.Autoestrada;
-import br.com.sistemamotiva.model.EstradaVicinal;
-import br.com.sistemamotiva.model.Manutencao;
-import br.com.sistemamotiva.model.TrechoRodovia;
-import br.com.sistemamotiva.model.IdentificacaoTrecho;
+// Importa todas as classes do pacote model unificado
+import br.com.sistemamotiva.model.*;
 
-public class SistemaMonitoramento{
-
+public class SistemaMonitoramento {
     public static void main(String[] args) {
         System.out.println("\n======= INICIANDO SISTEMA MOTIVA =======");
 
-        System.out.println("\n>>> [TESTE 1] Validando eficácia da proteção de dados");
-
-        //Trecho com identificador nulo, quilometragem negativa e ID nulo
-        IdentificacaoTrecho localizacaoErro = new IdentificacaoTrecho(null, -50.0, -10.0);
-
-        //Equipe com identificador nulo e quantidade de membros inválida
-        EquipeManutencao equipePequenaErro = new EquipeManutencao(null, 1);
-
-        //Manutenção com data nula
-        Manutencao manutencaoErro = new Manutencao(null, equipePequenaErro, null);
-
-        System.out.println("\n>>> [TESTE 2] Verificando cálculo de prioridades conforme");
-
-        //Prioridade ALTA (Vegetação > 20 e Faixas > 3)
-        IdentificacaoTrecho localRodoviaRapida = new IdentificacaoTrecho("BR-101", 100, 110);
-        TrechoRodovia rodoviaRapida = new Autoestrada(localRodoviaRapida, 25, 4);
+        // Simulação de comportamento de crescimento seco vs úmido
+        System.out.println("\n>>> [TESTE 1] Validando crescimento acelerado em regiões úmidas");
         
-        //Prioridade ALTA (Vegetação > 20 e não pavimentada)
-        IdentificacaoTrecho localEstradaTerra = new IdentificacaoTrecho("VIC-05", 0, 5);
-        TrechoRodovia estradaTerra = new EstradaVicinal(localEstradaTerra, 25, false);
+        IdentificacaoTrecho localSeco = new IdentificacaoTrecho("BR-101-SECO", 0, 10);
+        TrechoRodovia trechoSeco = new Autoestrada(localSeco, 10.0, 2);
 
-        rodoviaRapida.exibirInformacoes();
-        estradaTerra.exibirInformacoes();
+        IdentificacaoTrecho localUmido = new IdentificacaoTrecho("BR-101-UMIDO", 10, 20);
+        TrechoRodovia trechoUmido = new Autoestrada(localUmido, 10.0, 2);
+        trechoUmido.marcarComoRegiaoUmida();
 
-        System.out.println("\n>>> [TESTE 3] Simulando o crescimento da vegetação e atualização do nível");
-
-        //Criando um trecho crítico para o teste
-        IdentificacaoTrecho locCrescimento = new IdentificacaoTrecho("BR-116", 50, 60);
-        TrechoRodovia trechoCritico = new Autoestrada(locCrescimento, 15, 2);
-        
         System.out.println("--- Estado Inicial ---");
-        trechoCritico.exibirInformacoes();
+        trechoSeco.exibirInformacoes();
+        trechoUmido.exibirInformacoes();
 
-        //Registro de crescimento devido a chuvas
-        System.out.println("\n... Chuvas intensas registradas. A vegetação cresceu cerca de 20cm ...");
-        trechoCritico.registrarCrescimento(20);
-        trechoCritico.exibirInformacoes(); 
+        System.out.println("\n... Precipitação de chuvas registrada. Simulando crescimento base de 12cm ...");
+        trechoSeco.registrarCrescimento(12.0);
+        trechoUmido.registrarCrescimento(12.0);
 
-        //Envio de equipe para realizar a manutenção
-        EquipeManutencao equipeAlfa = new EquipeManutencao("Alfa", 5);
-        Manutencao ordemServico = new Manutencao("15/05/2026", equipeAlfa, trechoCritico);
+        System.out.println("--- Estado Pós-Precipitação ---");
+        trechoSeco.exibirInformacoes();
+        trechoUmido.exibirInformacoes();
 
-        ordemServico.executarManutencao();
 
-        //Verificar se o nível de vegetação foi atualizado após a manutenção
-        System.out.println("\n--- Status pós-manutenção ---");
-        trechoCritico.exibirInformacoes(); 
+        // Transmissão IoT e teste de integridade com Mock
+        System.out.println("\n>>> [TESTE 2] Validando interface IoT e o objeto Mock");
 
-        System.out.println("\n>>> [TESTE 4] Verificando cálculo de prioridades conforme trecho é ou não é pavimentado");
+        IdentificacaoTrecho localSensorizado = new IdentificacaoTrecho("BR-381-SMART", 45, 50);
+        AutoestradaSensorizada trechoSensorizado = new AutoestradaSensorizada(localSensorizado, 18.0,4);
 
-        //Criando duas estradas vicinais com o MESMO nível de vegetação (25cm)
-        IdentificacaoTrecho localVicinalAsfalto = new IdentificacaoTrecho("VIC-A", 10, 12);
-        TrechoRodovia vicinalAsfalto = new EstradaVicinal(localVicinalAsfalto, 25, true);
+        MockTrechoSensorizado mockIot = new MockTrechoSensorizado(28.5);
+        RegrasNegocio motor = new RegrasNegocio();
+
+        MonitoravelViaIoT[] sensoresEmCampo = new MonitoravelViaIoT[] {
+            trechoSensorizado,
+            mockIot
+        };
+        motor.processarLeiturasIoT(sensoresEmCampo);
+
+        // Relatório de prioridades (varredura automatizada)
+        System.out.println("\n>>> [TESTE 3] Geração do Relatório Automático de Prioridades e Intervenções");
+
+        IdentificacaoTrecho loc1 = new IdentificacaoTrecho("BR-040", 20, 30);
+        TrechoRodovia rodoviaCritica = new Autoestrada(loc1, 35.0, 4); // Prioridade CRITICA
+
+        IdentificacaoTrecho loc2 = new IdentificacaoTrecho("BR-116", 200, 210);
+        TrechoRodovia rodoviaAlta = new Autoestrada(loc2, 25.0, 4); // Prioridade ALTA
+
+        IdentificacaoTrecho loc3 = new IdentificacaoTrecho("VIC-B", 0, 8);
+        TrechoRodovia vicinalBaixa = new EstradaVicinal(loc3, 12.0, true); // Prioridade BAIXA
+
+        TrechoRodovia[] malhaRodoviaria = new TrechoRodovia[] {
+            rodoviaCritica,
+            rodoviaAlta,
+            vicinalBaixa
+        };
+        motor.gerarRelatorioPrioridade(malhaRodoviaria);
+
+        // Simulação de ordem de serviço controlada no fluxo tradicional
+        System.out.println("\n>>> [TESTE 4] Acionamento de intervenção com equipe de campo");
+        EquipeManutencao equipeGama = new EquipeManutencao("Gama", 3);
+        Manutencao osPulverizacao = new Manutencao("25/08/2026", equipeGama, rodoviaAlta, new Pulverizacao());
+        osPulverizacao.executarManutencao();
+
+
+        // Proteção da classe abstrata
+        System.out.println("\n>>> [TESTE 5] Verificando proteção de instanciamento de classes abstratas");
+        System.out.println("As linhas de código referentes ao TESTE 5 estão intencionalmente comentadas. Para testar a proteção do Java, descomente-as no código fonte.");
+
+                // O Java deve impedir fisicamente o nascimento de conceitos genéricos na memória, garantindo o isolamento das classes abstratas
+
+        // Teste 5.1: Criar uma intervenção sem especificar qual é
+        // IntervencaoOperacional servicoInvalido = new IntervencaoOperacional();
         
-        IdentificacaoTrecho localVicinalTerra = new IdentificacaoTrecho("VIC-T", 20, 22);
-        TrechoRodovia vicinalTerra = new EstradaVicinal(localVicinalTerra, 25, false);
+        // Teste 5.2: Criar um trecho de rodovia genérico (sem ser Autoestrada ou EstradaVicinal)
+        // TrechoRodovia trechoInvalido = new TrechoRodovia(new IdentificacaoTrecho("BR-TESTE", 0, 10), 12.0);
+
+        // >>> [TESTE 6] Validação de regras de proteção e limites do sistema
+        System.out.println("\n>>> [TESTE 6] Validando eficiência do sistema frente a dados inválidos");
+
+        System.out.println("\n--- Testando criação de equipe com tamanho insuficiente ---");
+        EquipeManutencao equipeInvalida = new EquipeManutencao("Gama-Invalida", 1);
+        System.out.println("Membros finais atribuídos: " + equipeInvalida.getQuantidadeMembros());
+
+        System.out.println("\n--- Testando quilometragem negativa no trecho ---");
+        IdentificacaoTrecho trechoNegativo = new IdentificacaoTrecho("BR-999", -10, -5);
+        System.out.println("KM Inicial: " + trechoNegativo.getQuilometroInicial() + " | KM Final: " + trechoNegativo.getQuilometroFinal());
+
+        System.out.println("\n--- Testando limite de proteção ecológica ---");
+        IdentificacaoTrecho locTeste = new IdentificacaoTrecho("BR-Teste", 100, 105);
+        TrechoRodovia trechoTeste = new Autoestrada(locTeste, 30.0, 2);
         
-        vicinalAsfalto.exibirInformacoes();
-        vicinalTerra.exibirInformacoes();
-
-        System.out.println("\n>>> [TESTE 5] Consistência de dados");
-
-        IdentificacaoTrecho localTrechoLongaDuracao = new IdentificacaoTrecho("BR-381", 0, 100);
-        TrechoRodovia trechoLongaDuracao = new Autoestrada(localTrechoLongaDuracao, 5, 6);
-
-        //Simulando crescimento em duas etapas
-        trechoLongaDuracao.registrarCrescimento(10);
-        trechoLongaDuracao.registrarCrescimento(16);
-        
-        System.out.println("--- Verificando de acúmulo de crescimento ---");
-        trechoLongaDuracao.exibirInformacoes();
-
-        //Reutilizando a equipe Alfa para uma nova manutenção
-        Manutencao novaOrdem = new Manutencao("17/05/2026", equipeAlfa, trechoLongaDuracao);
-        novaOrdem.executarManutencao();
-
-        System.out.println("\n--- Status pós-manutenção ---");
-        trechoLongaDuracao.exibirInformacoes();
+        System.out.println("Vegetação inicial: " + trechoTeste.getNivelVegetacaoCm() + "cm");
+        trechoTeste.atualizarNivelVegetacao(2.0);
+        System.out.println("Vegetação após tentativa: " + trechoTeste.getNivelVegetacaoCm() + "cm");
     }
 }

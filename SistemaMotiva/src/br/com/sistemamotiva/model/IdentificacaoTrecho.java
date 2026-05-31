@@ -27,8 +27,9 @@ public class IdentificacaoTrecho {
     private void setCodigoIdentificacao(String codigo) {
         if (codigo != null) {
             this.codigoIdentificacao = codigo;
-        } else{
-            System.out.println("Erro! O código informado é inválido.");
+        } else {
+            System.out.println("Erro! O código informado é inválido. Atribuindo valor padrão.");
+            this.codigoIdentificacao = "TRECHO-INDETERMINADO";
         }
     }
 
@@ -39,8 +40,11 @@ public class IdentificacaoTrecho {
     private void setQuilometroInicial(double valor) {
         if (valor < 0) {
             System.out.println("Erro! Não é permitida a definição de quilometragem negativa.");
+            this.quilometroInicial = 0.0;
+        } 
+        else {
+            this.quilometroInicial = valor;
         }
-        this.quilometroInicial = valor;
     }
 
     public double getQuilometroFinal() { 
@@ -50,7 +54,11 @@ public class IdentificacaoTrecho {
     private void setQuilometroFinal(double valor) {
         if (valor < 0) {
             System.out.println("Erro! Não é permitida a definição de quilometragem negativa.");
+        this.quilometroFinal = 0.0;
+        } 
+        else {
+            this.quilometroFinal = valor;
         }
-        this.quilometroFinal = valor;
     }
+    
 }

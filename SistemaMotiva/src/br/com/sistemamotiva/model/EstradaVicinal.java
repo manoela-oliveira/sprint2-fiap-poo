@@ -8,16 +8,16 @@ public class EstradaVicinal extends TrechoRodovia {
         this.isPavimentada = isPavimentada;
     }
 
-    public boolean isPavimentada(){
+    public boolean isPavimentada() {
         return isPavimentada;
     }
 
     @Override
     public String calcularPrioridade() {
-        if (getNivelVegetacaoCm() > 40){
+        if (getNivelVegetacaoCm() > 40) {
             return "CRITICA";
         }
-        if (!isPavimentada && getNivelVegetacaoCm() > 20){
+        if (!isPavimentada && getNivelVegetacaoCm() > 20) {
             return "ALTA";
         }
         return "BAIXA";

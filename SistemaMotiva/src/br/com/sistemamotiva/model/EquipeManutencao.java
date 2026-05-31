@@ -25,17 +25,20 @@ public class EquipeManutencao {
         return quantidadeMembros;
     }
 
-    private void setQuantidadeMembros(int valor) {
-        if (valor >= 2) {
-            this.quantidadeMembros = valor;
+    private void setQuantidadeMembros(int quantidadeMembros) {
+        if (quantidadeMembros >= 2) {
+            this.quantidadeMembros = quantidadeMembros;
         } else {
-            System.out.println("Erro! Por questões de segurança, a equipe de manutenção deve ser composta por ao menos 2 membros.");
+            System.out.println("Erro! Por segurança, a equipe de manutenção deve ser composta por ao menos 2 membros.");
             this.quantidadeMembros = 2;
         }
     }
 
-    public void realizarTrabalho(TrechoRodovia vegetacao) {
-        System.out.println("Equipe" + this.identificadorEquipe + " realizando a manutenção...");
-        vegetacao.atualizarNivelVegetacao();
+    /**
+     * Realiza um serviço específico de intervenção operacional no trecho rodoviário designado.
+     */
+    public void realizarTrabalho(IntervencaoOperacional servico, TrechoRodovia trechoAlvo) {
+        System.out.println("Equipe " + this.identificadorEquipe + " mobilizada para execução.");
+        servico.executarServico(trechoAlvo);
     }
 }

@@ -12,20 +12,20 @@ public class Autoestrada extends TrechoRodovia {
         return quantidadeFaixas;
     }
 
-    private void setQuantidadeFaixas(int valor){
-        if (valor >= 1) {
-            this.quantidadeFaixas = valor;
+    private void setQuantidadeFaixas(int quantidadeFaixas) {
+        if (quantidadeFaixas >= 1) {
+            this.quantidadeFaixas = quantidadeFaixas;
         } else {
-            System.out.println("Erro! Uma Autoestrada é composta de ao menos duas pistas, ou seja, é obrigatório que haja pelo menos uma faixa no trecho rodoviário para que o mesmo se encaixe na categoria.");
+            System.out.println("Erro! É obrigatório que haja pelo menos uma faixa no trecho rodoviário.");
         }
     }
 
     @Override
     public String calcularPrioridade() {
-        if (getNivelVegetacaoCm() > 30){
+        if (getNivelVegetacaoCm() > 30) {
             return "CRITICA";
         }
-        if (getNivelVegetacaoCm() > 20 && quantidadeFaixas > 3){
+        if (getNivelVegetacaoCm() > 20 && quantidadeFaixas > 3) {
             return "ALTA";
         }
         return "BAIXA";

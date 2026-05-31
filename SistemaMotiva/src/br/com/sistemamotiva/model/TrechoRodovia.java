@@ -6,6 +6,7 @@ package br.com.sistemamotiva.model;
 
 public abstract class TrechoRodovia {
     private double nivelVegetacaoCm;
+    private boolean regiaoUmida; 
 
     /*Conexão entre TrechoRododvia e IdentificacaoTrecho foi realizada através de uma
       associação. Aqui, IdentificacaoTrecho cumpre o papel de identificador, informando
@@ -15,6 +16,7 @@ public abstract class TrechoRodovia {
     public TrechoRodovia(IdentificacaoTrecho identificador, double nivelVegetacaoCm) {
         this.identificador = identificador;
         this.setNivelVegetacaoCm(nivelVegetacaoCm);
+        this.regiaoUmida = false; 
     }
 
     /*Este método é abstrato porque cada tipo de rodovia possui critérios 
@@ -34,28 +36,44 @@ public abstract class TrechoRodovia {
         }
     }
 
+    public boolean isRegiaoUmida() {
+        return this.regiaoUmida;
+    }
+
     public IdentificacaoTrecho getIdentificador() {
         return identificador;
     }
+    
 
-    /*Após a manutenção (roçada) o nível de vegetação deve voltar para 5cm.
+    public void marcarComoRegiaoUmida() {
+        this.regiaoUmida = true;
+    }
+
+    /*Caso o trecho esteja marcado como região úmida, há um fator multiplicador acelerador no
+      crescimento da vegetação. */
+    public void registrarCrescimento(double taxa) {
+        if (taxa > 0) {
+            double taxaEfetiva = this.regiaoUmida ? taxa * 1.8 : taxa;
+            this.nivelVegetacaoCm += taxaEfetiva;
+        }
+    }
+
+    /*Após a manutenção (roçada) o nível de vegetação deve voltar para, no mínimo, 5cm.
       A razão pelo qual apliquei esta regra de negócio seria a legislação sob a qual a empresa
       Motiva é regida. O nível de vegetação não pode ser muito baixo (<5) e muito menos
       inexistente (0), pois a empresa possui um compromisso ambiental de manter uma quantidade
       significativa de vegetação em suas rodovias. */
-    public void atualizarNivelVegetacao() {
-        this.setNivelVegetacaoCm(5);
-        System.out.println("Vegetação do trecho " + this.identificador.getCodigoIdentificacao() + " foi roçada.");
+    public void atualizarNivelVegetacao(double novoNivelCm) {
+    if (novoNivelCm >= 5.0) {
+        this.nivelVegetacaoCm = novoNivelCm;
+    } else {
+        this.nivelVegetacaoCm = 5.0;
     }
-
-    public void registrarCrescimento(double taxa) {
-        if (taxa > 0) {
-            this.nivelVegetacaoCm += taxa;
-        }
-    }
+}
 
     public void exibirInformacoes() {
-        System.out.println("\nTrecho: " + this.identificador.getCodigoIdentificacao() + " | Vai de " + identificador.getQuilometroInicial() + "km até " + identificador.getQuilometroFinal() + "km");
-        System.out.println("Nível de vegetação: " + this.nivelVegetacaoCm + "cm | Prioridade: " + this.calcularPrioridade());
+        String clima = this.regiaoUmida ? "Úmido (Acelerado)" : "Padrão";
+        System.out.println("\nTrecho: " + this.identificador.getCodigoIdentificacao() + " | Extensão: " + identificador.getQuilometroInicial() + "km a " + identificador.getQuilometroFinal() + "km" + " | Ambiente: " + clima);
+        System.out.println("Vegetação: " + this.nivelVegetacaoCm + "cm | Prioridade: " + this.calcularPrioridade());
     }
 }
