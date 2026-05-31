@@ -78,7 +78,16 @@ O objetivo macro é construir um sistema de monitoramento e priorização de ro�
       └── TrechoRodovia.java
 ```
  
-### Perguntas de reflexão
+## Visualização do sistema no Astah
+
+### Sistema inicial - Sprint 1
+<img width="841" height="524" alt="Image" src="https://github.com/user-attachments/assets/236d3b07-05ce-437a-82a5-102a8b0a6fb1" />
+
+### Sistema final - Sprint 2
+<img width="818" height="448" alt="Image" src="https://github.com/user-attachments/assets/07e3f291-13c9-4b31-a7f9-b022378f8b12" />
+
+
+## Perguntas de reflexão
 <ul>
     <li>Por que TrechoRodovia é classe e "BR-116 KM 10-15" é objeto?
     <br> TrechoRodovia é o conceito que não pode ser definido sozinho sem suas caracterízticas definidas, assim como o Veículo é um conceito sem definições. A "BR-116 KM 10-15" é a instância real de um objeto, com valores específicos, ocupando um lugar na memória. Eu não posso realizar a manutenção no TrechoRodovia, mas posso realizar a manutenção no trecho "BR-116 KM 10-15".
@@ -97,10 +106,3 @@ O objetivo macro é construir um sistema de monitoramento e priorização de ro�
     </li>
 </ul>
 
-## Visualização do sistema no Astah
-
-### Sistema inicial - Sprint 1
-<img width="841" height="524" alt="Image" src="https://github.com/user-attachments/assets/236d3b07-05ce-437a-82a5-102a8b0a6fb1" />
-
-### Sistema final - Sprint 2
-<img width="818" height="448" alt="Image" src="https://github.com/user-attachments/assets/07e3f291-13c9-4b31-a7f9-b022378f8b12" />
