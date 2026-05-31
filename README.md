@@ -97,4 +97,10 @@ O objetivo macro é construir um sistema de monitoramento e priorização de ro�
     </li>
 </ol>
 
-### Visualização do sistema no Astah
+## Visualização do sistema no Astah
+
+### Sistema inicial - Sprint 1
+<img width="841" height="524" alt="Image" src="https://github.com/user-attachments/assets/236d3b07-05ce-437a-82a5-102a8b0a6fb1" />
+
+### Sistema final - Sprint 2
+<img width="818" height="448" alt="Image" src="https://github.com/user-attachments/assets/07e3f291-13c9-4b31-a7f9-b022378f8b12" />
