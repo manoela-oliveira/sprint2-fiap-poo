@@ -101,7 +101,7 @@ A partir do projeto base, entregue no processo avaliativo da Sprint 1, uma nova 
     <br> Não faria sentido executar uma intervenção genérica pois cada cenário de manutenção exige ferramentas, tempo, equipes e métodos diferentes para ser realizada. Permitir no sistema a criação de uma "Intervenção Operacional" sem as devidas especificações poderia gerar retrabalho ao enviar equipes sem os equipamentos necessáriospara a execução da tarefa ou gastos adicionais, por exemplo, ao permitir o envio de equipamentos de grande porte para manutenções que não exigem tais mecânismos.
     </li>
     <li>Qual a diferença arquitetural entre fazer um Trecho herdar de uma classe abstrata vs.implementar uma Interface?
-    <br> Uma herança de classe abstrata modela uma relação rígida de atribuições, seguindo a lógica Has-A (Tem-Um), fazendo com que seus herdeiros compartilhem característicasbásicas. Já ao escolher implementar uma Interface, criamos um contrato de capacidade, aquilo que pode ser feito por tal "objeto", totalmente desvinculado da parte de heranças.Desse modo, é possível atribuir capacidades à objetos que não compartilham características básicas herdadas de uma mesma classe-mãe.
+    <br> Uma herança de classe abstrata modela uma relação rígida de atribuições, seguindo a lógica Has-A (Tem-Um), fazendo com que seus herdeiros compartilhem características básicas. Já ao escolher implementar uma Interface, criamos um contrato de capacidade, aquilo que pode ser feito por tal "objeto", totalmente desvinculado da parte de heranças. Desse modo, é possível atribuir capacidades à objetos que não compartilham características básicas herdadas de uma mesma classe-mãe.
     </li>
 </ul>
 
