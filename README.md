@@ -40,9 +40,8 @@ O objetivo macro é construir um sistema de monitoramento e priorização de ro�
 </ul>
 
 ### Lógica para desenvolvimento do sistema
-<ul>
-  <li>A partir do projeto base, entregue no processo avaliativo da Sprint 1, uma nova organização de arquivos foi criada a fim de contemplar as novas solicitações para a entrega da Sprint 2.
-  <br>Organização de arquivos da Sprint 1:
+A partir do projeto base, entregue no processo avaliativo da Sprint 1, uma nova organização de arquivos foi criada a fim de contemplar as novas solicitações para a entrega da Sprint 2.
+  <p>Organização de arquivos da Sprint 1:</p>
 
 ```
   sistemamotiva/
